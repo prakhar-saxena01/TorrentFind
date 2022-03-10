@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   AppBar,
   Container,
@@ -27,6 +27,14 @@ const Search = () => {
   const itemsPerPage = 10;
   const [page, setPage] = useState(1);
   const [noOfpage, setNoOfPage] = useState(1);
+  const startRef = useRef(null);
+  useEffect(() => {
+    startRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+  }, [page]);
 
   const selectHandler = (e) => {
     setServer(e.target.value);
@@ -72,6 +80,11 @@ const Search = () => {
   const StyledSelect = styled(Select)({
     color: "inherit",
   });
+  const handleHome = () => {
+    setTorrents("");
+    setValue("");
+    setError(false);
+  };
 
   return (
     <>
@@ -90,9 +103,11 @@ const Search = () => {
               sx={{
                 mr: 2,
                 display: { xs: "none", md: "flex" },
+                cursor: "pointer",
               }}
+              onClick={handleHome}
             >
-              Torrent Search
+              Torrent Find
             </Typography>
             <Typography
               variant="h6"
@@ -101,7 +116,7 @@ const Search = () => {
                 display: { xs: "flex", md: "none" },
               }}
             >
-              TSearch
+              TFind
             </Typography>
 
             <Box
@@ -135,6 +150,7 @@ const Search = () => {
           </Toolbar>
         </Container>
       </AppBar>
+      <div ref={startRef}> </div>
       <Container
         sx={{
           mt: { xs: 8, md: 10 },
@@ -176,7 +192,6 @@ const Search = () => {
             variant="outlined"
             shape="rounded"
             color="primary"
-            // sx={{ justtifyContent: "space-evenly" }}
           />
         </Container>
       )}

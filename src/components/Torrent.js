@@ -14,14 +14,14 @@ const Torrent = ({ t, s }) => {
       setCopied(true);
     } else {
       document.execCommand("copy", true, text);
-      setCopied(false);
+      setCopied(true);
     }
   };
   return (
     <>
       {s === "yts" ? (
         t.quality.map((q) => (
-          <Card key={q.magnet} sx={{ mb: 1 }}>
+          <Card sx={{ mb: 1 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 {t.name} ({q.quality})
@@ -34,15 +34,16 @@ const Torrent = ({ t, s }) => {
               <Link
                 src={q.magnet}
                 underline="none"
-                onClick={() => copyHandler(q.magnet)}
                 sx={{ cursor: "pointer" }}
                 component="button"
               >
-                {isCopied ? (
-                  <Typography variant="button">Copied</Typography>
-                ) : (
-                  <Typography variant="button">Magnet</Typography>
-                )}
+                <Typography
+                  variant="button"
+                  onClick={() => copyHandler(q.magnet)}
+                >
+                  {/* Todo (Fixed Copied) */}
+                  {isCopied ? "Magnet" : "Magnet"}
+                </Typography>
               </Link>
             </CardActions>
           </Card>
@@ -65,11 +66,9 @@ const Torrent = ({ t, s }) => {
               sx={{ cursor: "pointer" }}
               component="button"
             >
-              {isCopied ? (
-                <Typography variant="button">Copied</Typography>
-              ) : (
-                <Typography variant="button">Magnet</Typography>
-              )}
+              <Typography variant="button">
+                {isCopied ? "Copied" : "Magnet"}
+              </Typography>
             </Link>
           </CardActions>
         </Card>
