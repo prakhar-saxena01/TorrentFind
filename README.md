@@ -1,5 +1,5 @@
 # TorrentFind 🔎
-A Torrent Search Web App build using ReactJS.
+A easy to Use Torrent Search Web-App build using ReactJS that lets you find for the torrents.
 
 ---
 
